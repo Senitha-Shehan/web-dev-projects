@@ -90,6 +90,23 @@ nav.navbar {
   z-index: 9999;
   transition:  0.32s ease-in-out;
 }
+
+.vvd {
+  border: 2px solid white;
+  color: white;
+  background-color: transparent;
+  padding: 10px 20px;
+  font-size: 16px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.vvd:hover {
+  background-color: white;
+  color: black;
+}
+
 nav.navbar.scrolled {
   padding: 0px 0;
   background-color: #121212;
