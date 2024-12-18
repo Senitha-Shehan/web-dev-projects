@@ -36,3 +36,42 @@
     transform: rotate(360deg);
   }
 }
+
+.navbar.scrolled {
+  background-color: #000;
+  transition: background-color 0.3s ease-in-out;
+}
+
+.navbar-link {
+  color: #fff;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.navbar-link:hover,
+.navbar-link.active {
+  color: #f39c12;
+}
+
+.social-icon img {
+  width: 24px;
+  margin-right: 10px;
+  transition: transform 0.3s ease;
+}
+
+.social-icon img:hover {
+  transform: scale(1.2);
+}
+
+.vvd {
+  background-color: #f39c12;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
+}
+
+.vvd:hover {
+  background-color: #e67e22;
+}
