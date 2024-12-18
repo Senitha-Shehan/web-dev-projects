@@ -4,6 +4,7 @@ import NavBar from './components/NavBar'; // Update the path if it's in the comp
 import Banner from './components/Banner';
 import Skills from './components/Skills';
 import Projects from './components/Projects';
+import Contacts from './components/Contact';
 
 
 function App() {
@@ -13,6 +14,7 @@ function App() {
       <Banner />
       <Skills />
       <Projects />
+      <Contacts />
     </div>
   );
 }
