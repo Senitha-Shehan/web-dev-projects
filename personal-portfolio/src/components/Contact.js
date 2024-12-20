@@ -1,6 +1,6 @@
 import React from "react";
-import { useState, Row, Col } from "react";
-import { Container } from "react-bootstrap";
+import { Container, Row, Col } from "react-bootstrap";
+import { useState } from "react";
 import contactImg from "../assets/img/contact-img.svg";
 
 function Contact() {
@@ -36,20 +36,21 @@ function Contact() {
     setButtonText("Send");
     let result = await response.json();
     setFormDetails(formInitialDetails);
-    if (result.code == 200) {
-      setStatus({ succes: true, message: 'Message sent successfully'});
+    if (result.code === 200) {
+      setStatus({ success: true, message: "Message sent successfully" });
     } else {
-      setStatus({ succes: false, message: 'Something went wrong, please try again later.'});
+      setStatus({ success: false, message: "Something went wrong, try again later." });
     }
   };
+
   return (
-    <section className="contact" id="connect">
-      s
+    <section className="contact " id="contact">
       <Container>
         <Row className="align-items-center">
           <Col md={6}>
             <img src={contactImg} alt="Contact Us" />
           </Col>
+
           <Col md={6}>
             <h2>Get In Touch</h2>
             <form onSubmit={handleSubmit}>
@@ -76,7 +77,7 @@ function Contact() {
                   <input
                     type="email"
                     value={formDetails.email}
-                    placeholder="Email Address"
+                    placeholder="Email"
                     onChange={(e) => onFormUpdate("email", e.target.value)}
                   />
                 </Col>
@@ -85,36 +86,33 @@ function Contact() {
                   <input
                     type="tel"
                     value={formDetails.phone}
-                    placeholder="Phone No."
+                    placeholder="Phone Number"
                     onChange={(e) => onFormUpdate("phone", e.target.value)}
                   />
                 </Col>
 
                 <Col>
                   <textarea
-                    row="6"
+                    rows="9"
                     value={formDetails.message}
                     placeholder="Message"
                     onChange={(e) => onFormUpdate("message", e.target.value)}
                   ></textarea>
-                  <button type="submit" >
+                  <button type="submit">
                     <span>{buttonText}</span>
-
                   </button>
-
-                  {
-                    status.message &&
-                    <Col>
-                      <p
-                        className={
-                          status.success === false ? "danger" : "success"
-                        }
-                      >
-                        {status.message}
-                      </p>
-                    </Col>
-                  }
                 </Col>
+                {status.message && (
+                  <Col>
+                    <p
+                      className={
+                        status.success === false ? "danger" : "success"
+                      }
+                    >
+                      {status.message}
+                    </p>
+                  </Col>
+                )}
               </Row>
             </form>
           </Col>
