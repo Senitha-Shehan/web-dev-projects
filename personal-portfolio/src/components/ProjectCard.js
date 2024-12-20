@@ -1,5 +1,6 @@
 import React from 'react'
 import { Col } from "react-bootstrap";
+import imgUrl from "../assets/img/project-img1.png";
 
 export const ProjectCard = ({ title, description, imgUrl }) => {
   return (

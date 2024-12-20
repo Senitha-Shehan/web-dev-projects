@@ -71,13 +71,13 @@ function NavBar() {
           </Nav>
           <span className="navbar-text">
             <div className="social-icon">
-              <a href="#">
+              <a href="https://www.linkedin.com/in/senitha-shehan-54b47a338/">
                 <img src={navIcon1} alt="" />
               </a>
-              <a href="#">
+              <a href="https://www.facebook.com/Mr.Seni">
                 <img src={navIcon2} alt="" />
               </a>
-              <a href="#">
+              <a href="https://www.instagram.com/">
                 <img src={navIcon3} alt="" />
               </a>
             </div>

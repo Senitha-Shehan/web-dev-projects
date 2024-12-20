@@ -5,8 +5,10 @@ import "react-multi-carousel/lib/styles.css";
 import { Col, Row } from "react-bootstrap";
 import meter1 from "../assets/img/meter1.svg";
 import meter2 from "../assets/img/meter2.svg";
-import meter3 from "../assets/img/meter3.svg"; 
+import meter3 from "../assets/img/meter3.svg";
 import colorSharp from "../assets/img/color-sharp.png";
+import "animate.css";
+import TrackVisibility from "react-on-screen";
 
 function Skills() {
   const responsive = {
@@ -33,42 +35,47 @@ function Skills() {
       <Container>
         <Row>
           <Col>
-            <div className="skill-bx">
-              <h2>Skills</h2>
-              <p>
-                I value simple content structure, clean design patterns, and
-                thoughtful interactions.
-              </p>
-              <Carousel
-                responsive={responsive}
-                infinite={true}
-                className="skill-slider"
-              >
-                <div className="item">
-                  <img src={meter1} alt="HTML" />
-                  <h5>Web Development</h5>
+            <TrackVisibility>
+              {({ isVisible }) => (
+                <div
+                  className={`skill-bx ${
+                    isVisible ? "animate__animated animate__pulse" : ""
+                  }`}
+                >
+                  <h2>Skills</h2>
+                  <p>
+                    I value simple content structure, clean design patterns, and
+                    thoughtful interactions.
+                  </p>
+                  <Carousel
+                    responsive={responsive}
+                    infinite={true}
+                    className="skill-slider"
+                  >
+                    <div className="item">
+                      <img src={meter1} alt="Web Development" />
+                      <h5>Web Development</h5>
+                    </div>
+                    <div className="item">
+                      <img src={meter2} alt="Mobile Development" />
+                      <h5>Mobile Development</h5>
+                    </div>
+                    <div className="item">
+                      <img src={meter3} alt="Full Stack Developer" />
+                      <h5>Full Stack Developer</h5>
+                    </div>
+                    <div className="item">
+                      <img src={meter1} alt="Web Development" />
+                      <h5>Web Development</h5>
+                    </div>
+                  </Carousel>
                 </div>
-
-                <div className="item">
-                  <img src={meter2} alt="HTML" />
-                  <h5>Mobile Development</h5>
-                </div>
-
-                <div className="item">
-                  <img src={meter3} alt="HTML" />
-                  <h5>Logo Design</h5>
-                </div>
-
-                <div className="item">
-                  <img src={meter1} alt="HTML" />
-                  <h5>Web Development</h5>
-                </div>
-              </Carousel>
-            </div>
+              )}
+            </TrackVisibility>
           </Col>
         </Row>
       </Container>
-      <img className="background-image-left" src={colorSharp} alt="Image" />
+      <img className="background-image-left" src={colorSharp} alt="Background" />
     </section>
   );
 }
