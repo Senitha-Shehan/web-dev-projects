@@ -22,6 +22,7 @@ function Footer() {
                 <a href=""><img src={navIcon2} alt="" /></a>
                 <a href=""><img src={navIcon3} alt="" /></a>
             </div>
+            <p>Copyright 2024. All Rights Reserved</p>
             </Col>
         </Row>
       </Container>
