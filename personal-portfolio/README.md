@@ -1,8 +1,8 @@
-#Personal Portfolio
+# Personal Portfolio
 
 # Projects Section
 
-*This repository contains the `Projects` section of a React-based application, which showcases a list of projects with tabs to categorize the content. It leverages the following tools and libraries:
+*This repository contains the `Projects` section of a React-based application, which showcases a list of projects with tabs to categorize the content. It leverages the following tools and libraries:*
 
 - **React**: A JavaScript library for building user interfaces.
 - **React Bootstrap**: For responsive layouts and styled components.
