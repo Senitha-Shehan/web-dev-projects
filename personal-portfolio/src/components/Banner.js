@@ -59,7 +59,7 @@ function Banner() {
           <TrackVisibility>
           {({ isVisible }) =>
           <div className={isVisible ? "animate__animated animate__fadeIn" : ""}>
-            <span className="tagline">Welcome to my Portfolio </span>
+            <span className="tagline">Welcome to my Portfolio !! </span>
             <h1>
               {`Hi! I'm Senitha Shehan`} <span className="wrap">{text}</span>
             </h1>
