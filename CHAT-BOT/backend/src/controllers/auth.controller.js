@@ -6,53 +6,32 @@ import jwt from "jsonwebtoken";
 
 export const signup = async (req, res) => {
   try {
-    // Extract fields from the request body
     const { fullName, email, password } = req.body;
 
-    // Validate input
+    // Input validation
     if (!fullName || !email || !password) {
-      return res.status(400).json({ error: "All fields are required" });
+      return res.status(400).json({ message: "All fields are required" });
     }
 
-    if (password.length < 6) {
-      return res
-        .status(400)
-        .json({ error: "Password must be at least 6 characters long" });
-    }
-
-    // Check if the email already exists
+    // Check if email exists
     const existingUser = await User.findOne({ email });
-
     if (existingUser) {
-      return res.status(400).json({ error: "Email already exists" });
+      return res.status(409).json({ message: "Email already registered" });
     }
 
-    // Hash the password
-    const salt = await bcrypt.genSalt(10);
-    const hashedPassword = await bcrypt.hash(password, salt);
+    // Hash password
+    const hashedPassword = await bcrypt.hash(password, 10);
 
-    // Create a new user
-    const newUser = new User({
+    // Create user
+    const newUser = await User.create({
       fullName,
       email,
       password: hashedPassword,
     });
 
-    // Save the user and generate a token
-    await newUser.save();
-    generateToken(newUser._id, res);
-
-    // Respond with success and user details
-    res.status(201).json({
-      _id: newUser._id,
-      fullName: newUser.fullName,
-      email: newUser.email,
-      profilePic: newUser.profilePic || null, // Provide a default value if profilePic is not set
-    });
+    res.status(201).json({ message: "Account created successfully", user: newUser });
   } catch (error) {
-    console.error("Error in signup controller:", error.message);
-
-    // Respond with an error message
+    console.error(error);
     res.status(500).json({ message: "Internal Server Error" });
   }
 };
