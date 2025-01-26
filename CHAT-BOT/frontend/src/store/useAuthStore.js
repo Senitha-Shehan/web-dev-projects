@@ -2,7 +2,6 @@ import { create } from "zustand";
 import { axiosInstance } from "../lib/axios.js";
 import toast from "react-hot-toast";
 
-
 export const useAuthStore = create((set) => ({
   authUser: null,
   isSigningUp: false,
@@ -63,4 +62,35 @@ export const useAuthStore = create((set) => ({
     }
   },
 
+  updateProfile: async (data) => {
+    set({ isUpdatingProfile: true });
+    try {
+      const token = authUser?.token || localStorage.getItem("authToken");
+  
+      if (!token) {
+        throw new Error("No authentication token found.");
+      }
+  
+      const res = await axiosInstance.put("/auth/update-profile", data, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+  
+      // Check if authUser is available before updating
+      if (authUser) {
+        set({ authUser: res.data });
+      }
+  
+      toast.success("Profile updated successfully");
+    } catch (error) {
+      console.log("Error details in update profile:", error); // Log the full error object
+      toast.error(error?.response?.data?.message || error.message || "Profile update failed");
+    } finally {
+      set({ isUpdatingProfile: false });
+    }
+  },
+  
+  
+  
 }));
