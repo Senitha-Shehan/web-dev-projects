@@ -10,9 +10,13 @@ import { useAuthStore } from "./store/useAuthStore";
 import { Loader } from "lucide-react";
 import { Toaster } from "react-hot-toast";
 import Footer from "./components/Footer";
+import useThemeStore from "./store/useThemeStore";
+
 
 function App() {
   const { authUser, checkAuth, isCheckingAuth } = useAuthStore(); // Destructure isCheckingAuth
+
+  const { theme } = useThemeStore()
 
   useEffect(() => {
     checkAuth();
@@ -29,7 +33,7 @@ function App() {
     );
 
   return (
-    <div>
+    <div data-theme={theme}>
       <Navbar />
 
       <Routes>
