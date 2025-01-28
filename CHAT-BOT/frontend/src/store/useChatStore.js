@@ -2,7 +2,6 @@ import { create } from "zustand";
 import toast from "react-hot-toast";
 import { axiosInstance } from "../lib/axios";
 import { useAuthStore } from "./useAuthStore";
-
 export const useChatStore = create((set, get) => ({
   messages: [],
   users: [],
@@ -21,6 +20,7 @@ export const useChatStore = create((set, get) => ({
       set({ isUsersLoading: false });
     }
   },
+
 
   getMessages: async (userId) => {
     set({ isMessagesLoading: true });

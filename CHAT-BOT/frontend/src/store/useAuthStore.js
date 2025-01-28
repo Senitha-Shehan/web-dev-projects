@@ -2,18 +2,19 @@ import { create } from "zustand";
 import { axiosInstance } from "../lib/axios.js";
 import toast from "react-hot-toast";
 
-export const useAuthStore = create((set) => ({
+const BASE_URL = import.meta.env.MODE === "development" ? "http://localhost:5001" : "/";
+
+export const useAuthStore = create((set, get) => ({
   authUser: null,
   isSigningUp: false,
-  isLoginIng: false,
+  isLoggingIn: false, // Fixed typo: "isLoginIng" to "isLoggingIn"
   isUpdatingProfile: false,
-
   isCheckingAuth: true,
+  
 
   checkAuth: async () => {
     try {
       const res = await axiosInstance.get("/auth/check");
-
       set({ authUser: res.data });
     } catch (error) {
       console.log("Error in checkAuth:", error);
@@ -29,9 +30,9 @@ export const useAuthStore = create((set) => ({
       const res = await axiosInstance.post("/auth/signup", data);
       set({ authUser: res.data });
       toast.success("Account created successfully");
-      get().connectSocket();
+      get().connectSocket(); // Use get() to access other store actions
     } catch (error) {
-      toast.error(error.response.data.message);
+      toast.error(error.response?.data?.message || "Signup failed");
     } finally {
       set({ isSigningUp: false });
     }
@@ -41,12 +42,21 @@ export const useAuthStore = create((set) => ({
     set({ isLoggingIn: true });
     try {
       const res = await axiosInstance.post("/auth/login", data);
-      set({ authUser: res.data });
-      toast.success("Logged in successfully");
 
-      get().connectSocket();
+      if (res && res.data) {
+        set({ authUser: res.data });
+        toast.success("Logged in successfully");
+        get().connectSocket(); // Use get() to access other store actions
+      } else {
+        throw new Error("Unexpected response format");
+      }
     } catch (error) {
-      toast.error(error.response.data.message);
+      console.error("Error in login:", error); // Log full error for debugging
+      toast.error(
+        error?.response?.data?.message ||
+          error.message ||
+          "Login failed. Please try again."
+      );
     } finally {
       set({ isLoggingIn: false });
     }
@@ -65,7 +75,7 @@ export const useAuthStore = create((set) => ({
   updateProfile: async (data) => {
     set({ isUpdatingProfile: true });
     try {
-      const token = authUser?.token || localStorage.getItem("authToken");
+      const token = get().authUser?.token || localStorage.getItem("authToken"); // Use get() to access state
 
       if (!token) {
         throw new Error("No authentication token found.");
@@ -77,11 +87,7 @@ export const useAuthStore = create((set) => ({
         },
       });
 
-      // Check if authUser is available before updating
-      if (authUser) {
-        set({ authUser: res.data });
-      }
-
+      set({ authUser: res.data });
       toast.success("Profile updated successfully");
     } catch (error) {
       console.log("Error details in update profile:", error); // Log the full error object
@@ -93,5 +99,10 @@ export const useAuthStore = create((set) => ({
     } finally {
       set({ isUpdatingProfile: false });
     }
+  },
+
+  connectSocket: () => {
+    // Implement your socket connection logic here
+    console.log("Socket connected");
   },
 }));
