@@ -1,4 +1,4 @@
-# web and Mobile-dev-projects
+# Web and Mobile-dev-projects
 
 **PROJECT 01 - PERSONAL PORTFOLIO**
 
