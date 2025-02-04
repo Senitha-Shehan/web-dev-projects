@@ -5,6 +5,9 @@
         "use": "@vercel/static-build",
         "config": { "distDir": "frontend/build" }
       }
+    ],
+    "routes": [
+      { "src": "/(.*)", "dest": "frontend/build/index.html" }
     ]
   }
   
