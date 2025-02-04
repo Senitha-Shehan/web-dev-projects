@@ -4,8 +4,8 @@
   "description": "Highlights:",
   "main": "index.js",
   "scripts": {
-    "build":"npm install --prefix backend && npm install --prefix frontend && npm run build --prefix frontend",
-    "start":"npm run start --prefix backend && npm run start --prefix frontend"
+    "build": "cd frontend && npm install && npm run build",
+  "start": "cd backend && npm install && npm start"
   },
   "keywords": [],
   "author": "",
